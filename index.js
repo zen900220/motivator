@@ -1,7 +1,13 @@
-require("dotenv").config();
 const { Client, GatewayIntentBits } = require("discord.js");
-const generateResponse = require("./generateResponse");
-const isMedia = require("./isMedia");
+const fs = require("fs");
+
+if (fs.existsSync("./.env")) {
+  require("dotenv").config();
+}
+
+const generateResponse = require("./utils/generateResponse");
+const isMedia = require("./utils/isMedia");
+const keepAlive = require("./utils/server");
 
 const client = new Client({
   intents: [
@@ -23,5 +29,7 @@ client.on("messageCreate", async (message) => {
 
   message.reply(await generateResponse());
 });
+
+keepAlive();
 
 client.login(process.env.TOKEN);

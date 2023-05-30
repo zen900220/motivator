@@ -9,7 +9,7 @@ const openai = new OpenAIApi(configuration);
 module.exports = async function () {
   const response = await openai.createCompletion({
     model: "text-davinci-003",
-    prompt: "Praise my girlfriend for her beautiful artwork",
+    prompt: `${process.env.PROMPT}`,
     temperature: 0.5,
     max_tokens: 50,
     stop: ["."],
